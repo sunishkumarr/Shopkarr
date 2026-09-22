@@ -1,0 +1,4 @@
+@import "tailwindcss";
+
+/* Tell Tailwind to scan your entire Django project for HTML files */
+@source "../../";

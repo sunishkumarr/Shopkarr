@@ -1,0 +1,57 @@
+{% extends "products/base.html" %}
+
+{% block title %}{{ product.name }} | ShopKarr{% endblock %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+    <nav class="flex items-center space-x-2 text-sm text-gray-500 mb-6">
+        <a href="{% url 'products:product_list' %}" class="hover:text-emerald-600 transition-colors">Products</a>
+        <span>/</span>
+        {% if product.category %}
+            <a href="{% url 'products:product_list_by_category' product.category.id %}" class="hover:text-emerald-600 transition-colors">
+                {{ product.category.name }}
+            </a>
+            <span>/</span>
+        {% endif %}
+        <span class="text-gray-900 font-medium truncate">{{ product.name }}</span>
+    </nav>
+
+    <div class="bg-white rounded-2xl shadow-sm border border-emerald-100 overflow-hidden flex flex-col md:flex-row">
+        <div class="md:w-1/2 bg-emerald-50/40 min-h-[320px] flex items-center justify-center border-b md:border-b-0 md:border-r border-emerald-100">
+            <span class="text-emerald-300 text-7xl"></span>
+        </div>
+
+        <div class="md:w-1/2 p-8 sm:p-10 flex flex-col justify-between">
+            <div>
+                {% if product.category %}
+                    <a href="{% url 'products:product_list_by_category' product.category.id %}"
+                       class="inline-block text-xs font-bold tracking-wider text-emerald-600 uppercase mb-2 hover:text-emerald-800">
+                        {{ product.category.name }}
+                    </a>
+                {% endif %}
+
+                <h1 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-3">{{ product.name }}</h1>
+                <p class="text-3xl font-black text-emerald-600 mb-6">Rs. {{ product.price }}</p>
+
+                <div class="text-gray-600 text-sm leading-relaxed mb-6">
+                    {{ product.description|linebreaks }}
+                </div>
+            </div>
+
+            <div class="pt-6 border-t border-gray-100">
+                {% if product.stock > 0 %}
+                    <p class="text-sm font-semibold text-emerald-600 flex items-center">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 mr-2"></span>
+                        In Stock ({{ product.stock }} units available)
+                    </p>
+                {% else %}
+                    <p class="text-sm font-semibold text-red-500 flex items-center">
+                        <span class="w-2 h-2 rounded-full bg-red-500 mr-2"></span>
+                        Out of Stock
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -2,3 +2,4 @@ shopkarrenv/
 .env
 *.pyc
 __pycache__/
+tailwindcss
